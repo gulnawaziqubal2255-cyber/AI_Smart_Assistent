@@ -1,0 +1,50 @@
+{
+  "college_name": "University Polytechnic - Galgotias University",
+  "college_page_url": "https://example-college.edu/info",
+  "about": "An AI-powered college assistant that helps students and faculty access timetables, notices, attendance, fees, and department information instantly.",
+  "stats": {
+    "students": 1150,
+    "departments": 6,
+    "faculty": 42,
+    "notices": 8
+  },
+  "departments": [
+    "Computer Science & Engineering",
+    "Mechanical Engineering",
+    "Civil Engineering",
+    "Electronics Engineering",
+    "Information Technology",
+    "Applied Sciences"
+  ],
+  "events": [
+    {"title": "Summer Internship Fair", "date": "2026-06-05"},
+    {"title": "Sports Fest Registration", "date": "2026-06-10"},
+    {"title": "AI Workshop", "date": "2026-06-15"}
+  ],
+  "timetable": {
+    "CSE": "CSE timetable:\nMon: DBMS, Tue: OS, Wed: Data Structures, Thu: AI, Fri: Web Dev",
+    "ME": "Mechanical timetable:\nMon: Thermodynamics, Tue: Fluid Mechanics, Wed: CAD, Thu: Manufacturing, Fri: Materials",
+    "Civil": "Civil timetable:\nMon: Strength of Materials, Tue: Surveying, Wed: Environmental Engg, Thu: Design of RCC, Fri: Soil Mechanics"
+  },
+  "attendance": {
+    "current": "Your current attendance is 82% in Semester 5.",
+    "summary": "Most students have attendance between 75% and 92%."
+  },
+  "notices": [
+    {"title": "Exam Schedule Released", "date": "2026-05-20"},
+    {"title": "Hostel Fee Due Date", "date": "2026-05-22"},
+    {"title": "Sports Fest Registration Open", "date": "2026-05-25"},
+    {"title": "New Library Hours", "date": "2026-05-27"}
+  ],
+  "fees": {
+    "general": "Tuition fees for the semester are due by June 10. Please visit the finance office or online ERP to pay.",
+    "hostel": "Hostel fees are due by June 5. Submit payment at the hostel accounts office.",
+    "scholarship": "Scholarship applications are open until July 1. Contact student affairs for details."
+  },
+  "faculty": [
+    {"name": "Dr. Priya Sharma", "subject": "Artificial Intelligence", "designation": "Assistant Professor", "expertise": "AI, ML"},
+    {"name": "Mr. Ravi Gupta", "subject": "Database Systems", "designation": "Associate Professor", "expertise": "DBMS, SQL"},
+    {"name": "Ms. Neha Singh", "subject": "Web Development", "designation": "Assistant Professor", "expertise": "React, JavaScript"},
+    {"name": "Dr. Sunita Verma", "subject": "Thermodynamics", "designation": "Professor", "expertise": "Mechanical Engineering"}
+  ]
+}

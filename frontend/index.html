@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI College Assistant</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="hero-panel">
+    <div class="hero-copy">
+      <span class="eyebrow">College AI Assistant</span>
+      <h1>Smart college support for students and faculty</h1>
+      <p>Ask questions, view notices, check attendance, and get instant academic help from your college assistant.</p>
+      <div class="hero-actions">
+        <button id="scrollToChat">Start Chatting</button>
+        <a class="hero-link" href="#dashboard">View Dashboard</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-title">Live College Summary</div>
+      <div class="stats-grid" id="heroStats"></div>
+    </div>
+  </div>
+
+  <main class="page-shell">
+    <section id="dashboard" class="dashboard">
+      <div class="dashboard-card intro-card">
+        <h2>Why this assistant?</h2>
+        <p>This web app helps students quickly access college information without searching through notices, WhatsApp groups or ERP portals.</p>
+      </div>
+      <div class="dashboard-grid" id="dashboardGrid"></div>
+    </section>
+
+    <section class="assistant-panel">
+      <div class="assistant-info">
+        <h2>Ask your college assistant</h2>
+        <p>Type any question about timetable, attendance, notices, fees or faculty.</p>
+      </div>
+      <div class="chat-layout">
+        <div class="chat-window" id="chatWindow"></div>
+        <form id="queryForm" class="chat-form">
+          <input id="queryInput" type="text" placeholder="Ask something like \"What is the CSE timetable?\"" autocomplete="off" />
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
