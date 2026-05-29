@@ -17,8 +17,15 @@ AI College Assistant Web Application
 3. Run:
    ```bash
    pip install -r requirements.txt
+   pip install openai
    python app.py
    ```
+5. To enable OpenAI-powered answers, set the environment variable `OPENAI_API_KEY` before starting the backend.
+
+```bash
+set OPENAI_API_KEY=your_key_here
+python app.py
+```
 4. Open `http://127.0.0.1:5000` in your browser
 
 ## How to extend this project

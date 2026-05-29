@@ -3,6 +3,10 @@ from flask_cors import CORS
 import json
 import os
 import requests
+try:
+    import openai
+except ImportError:
+    openai = None
 
 app = Flask(__name__, static_folder='../frontend', static_url_path='')
 CORS(app)
@@ -10,6 +14,10 @@ CORS(app)
 DATA_FILE = os.path.join(os.path.dirname(__file__), 'college_data.json')
 with open(DATA_FILE, 'r', encoding='utf-8') as f:
     college_data = json.load(f)
+
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', '').strip()
+if openai and OPENAI_API_KEY:
+    openai.api_key = OPENAI_API_KEY
 
 
 def fetch_college_page(url):
@@ -24,33 +32,91 @@ def fetch_college_page(url):
         return None
 
 
+def build_openai_prompt(query):
+    about = college_data.get('about', '')
+    notices = '\n'.join([f"- {n['title']} ({n['date']})" for n in college_data.get('notices', [])])
+    events = '\n'.join([f"- {e['title']} ({e['date']})" for e in college_data.get('events', [])])
+    departments = ', '.join(college_data.get('departments', []))
+    faculty_list = '\n'.join([f"- {f['name']} ({f['subject']})" for f in college_data.get('faculty', [])])
+
+    prompt = (
+        f"You are an AI college assistant for {college_data.get('college_name')} at Galgotias University. "
+        f"Use the college information below to answer the user's question clearly and politely. "
+        f"If the user asks for information not available in the provided data, tell them you cannot access it directly and suggest contacting the college admin.\n\n"
+        f"College info:\n"
+        f"About: {about}\n"
+        f"Website: {college_data.get('college_page_url')}\n"
+        f"Departments: {departments}\n"
+        f"Events:\n{events}\n"
+        f"Notices:\n{notices}\n"
+        f"Faculty:\n{faculty_list}\n"
+        f"Tuition fees: {college_data.get('fees', {}).get('general')}\n"
+        f"Hostel fees: {college_data.get('fees', {}).get('hostel')}\n"
+        f"Attendance summary: {college_data.get('attendance', {}).get('summary')}\n"
+        f"Timetables: {', '.join(college_data.get('timetable', {}).keys())}\n\n"
+        f"Answer the following question from the user:\n{query}\n"
+        f"Keep the response short, friendly, and useful."
+    )
+    return prompt
+
+
+def get_openai_response(query):
+    if not openai or not OPENAI_API_KEY:
+        return None
+
+    prompt = build_openai_prompt(query)
+    try:
+        completion = openai.ChatCompletion.create(
+            model='gpt-3.5-turbo',
+            messages=[
+                {'role': 'system', 'content': 'You are a helpful AI assistant for a college student.'},
+                {'role': 'user', 'content': prompt}
+            ],
+            max_tokens=300,
+            temperature=0.3,
+        )
+        answer = completion.choices[0].message.content.strip()
+        return answer
+    except Exception:
+        return None
+
+
+def local_answer(query):
+    if any(term in query for term in ['timetable', 'schedule', 'class', 'period', 'subject']):
+        return answer_timetable(query)
+
+    if any(term in query for term in ['attendance', 'present', 'absent', 'percent']):
+        return answer_attendance(query)
+
+    if any(term in query for term in ['notice', 'circular', 'announcement', 'news']):
+        return answer_notices()
+
+    if any(term in query for term in ['fee', 'fees', 'tuition', 'hostel', 'payment', 'scholarship']):
+        return answer_fee(query)
+
+    if any(term in query for term in ['teacher', 'faculty', 'professor', 'mentor', 'staff']):
+        return answer_faculty(query)
+
+    if any(term in query for term in ['website', 'web page', 'website link', 'college page']):
+        return answer_website()
+
+    if any(term in query for term in ['about college', 'about', 'information', 'who are', 'what is']):
+        return college_data.get('about', 'This is your AI College Assistant for academic information.')
+
+    return answer_general(query)
+
+
 def smart_answer(query, role='student'):
-    query_text = query.strip().lower()
+    query_text = query.strip()
     if not query_text:
         return 'Please type a question about your college timetable, notices, attendance, fees, or faculty.'
 
-    if any(term in query_text for term in ['timetable', 'schedule', 'class', 'period', 'subject']):
-        return answer_timetable(query_text)
+    if openai and OPENAI_API_KEY:
+        answer = get_openai_response(query_text)
+        if answer:
+            return answer
 
-    if any(term in query_text for term in ['attendance', 'present', 'absent', 'percent', 'attendance']):
-        return answer_attendance(query_text)
-
-    if any(term in query_text for term in ['notice', 'circular', 'announcement', 'news']):
-        return answer_notices()
-
-    if any(term in query_text for term in ['fee', 'fees', 'tuition', 'hostel', 'payment']):
-        return answer_fee(query_text)
-
-    if any(term in query_text for term in ['teacher', 'faculty', 'professor', 'mentor', 'staff']):
-        return answer_faculty(query_text)
-
-    if any(term in query_text for term in ['college website', 'website', 'web page', 'website link', 'college page']):
-        return answer_website()
-
-    if any(term in query_text for term in ['about college', 'about', 'information', 'who are', 'what is']):
-        return college_data.get('about', 'This is your AI College Assistant for academic information.')
-
-    return answer_general(query_text)
+    return local_answer(query_text.lower())
 
 
 def answer_timetable(query):
