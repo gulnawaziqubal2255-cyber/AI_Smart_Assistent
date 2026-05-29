@@ -17,16 +17,23 @@ AI College Assistant Web Application
 3. Run:
    ```bash
    pip install -r requirements.txt
-   pip install openai
    python app.py
    ```
-5. To enable OpenAI-powered answers, set the environment variable `OPENAI_API_KEY` before starting the backend.
+
+4. (Optional) To use a `.env` file, copy `backend/.env.example` to `backend/.env` and set your `OPENAI_API_KEY` there. Do NOT commit `.env`.
+
+5. To enable OpenAI-powered answers via environment variable:
 
 ```bash
 set OPENAI_API_KEY=your_key_here
 python app.py
 ```
-4. Open `http://127.0.0.1:5000` in your browser
+
+6. Open `http://127.0.0.1:5000` in your browser
+
+## Secrets & Safety
+- Do not paste your API keys into chat or public repos. The strings you posted look like API keys — never share them publicly.
+- If you accidentally exposed a key, rotate it immediately from your OpenAI dashboard and delete the old key.
 
 ## How to extend this project
 - Replace `backend/college_data.json` with your college's real data
