@@ -1,49 +1,56 @@
 # AI_Smart_Assistent
-AI College Assistant Web Application
+AI College Assistant Web Application for Galgotias University
 
 ## Project structure
-- `backend/` — Flask API and college data source
-- `frontend/` — responsive homepage, dashboard, and chat UI
+- `backend/` — Flask API, college metadata, and OpenAI integration logic
+- `frontend/` — static web UI, chat interface, dashboard, campus contact panel, and quick actions
 
-## What this scaffold does
-- Provides a homepage with college summary cards
-- Lets students ask questions about timetable, attendance, notices, fees, faculty, and website info
-- Supports a backend endpoint for college metadata and chat queries
-- Includes a placeholder for connecting to a real college website or ERP portal
+## Current features
+- Homepage with live college summary cards and campus/contact panel
+- Chat assistant for timetable, attendance, notices, fees, faculty, and website info
+- OpenAI status indicator showing whether GPT mode is enabled
+- Quick action buttons for common queries
+- Popular question panel for fast user guidance
+- Dedicated college contact and campus info section
+- Local fallback answer logic when OpenAI is unavailable
 
 ## Run locally
 1. Install Python 3.10+ and pip
-2. Open a terminal in `backend/`
-3. Run:
+2. Open a terminal in the project root or `backend/`
+3. Install dependencies:
    ```bash
+   cd backend
    pip install -r requirements.txt
+   ```
+4. Run the app:
+   ```bash
    python app.py
    ```
+5. Open `http://127.0.0.1:5000` in your browser
 
-4. (Optional) To use a `.env` file, copy `backend/.env.example` to `backend/.env` and set your `OPENAI_API_KEY` there. Do NOT commit `.env`.
+## Optional: OpenAI mode
+1. Copy `backend/.env.example` to `backend/.env`
+2. Add your key:
+   ```text
+   OPENAI_API_KEY=your_openai_api_key_here
+   ```
+3. Restart the app
+4. The frontend will show `OpenAI enabled` when GPT mode is active
 
-5. To enable OpenAI-powered answers via environment variable:
+## Notes
+- Use `backend/college_data.json` to update the college profile, departments, notices, events, timetable, attendance, fees, faculty, and contact info.
+- The app currently serves static frontend assets from `frontend/` and exposes two main backend endpoints:
+  - `GET /api/college-data`
+  - `POST /api/query`
 
-```bash
-set OPENAI_API_KEY=your_key_here
-python app.py
-```
+## Security
+- Never commit `.env` or API keys to a public repository
+- `.gitignore` should already exclude environment files and secrets
+- If a key is exposed accidentally, rotate it immediately in the OpenAI dashboard
 
-6. Open `http://127.0.0.1:5000` in your browser
-
-## Secrets & Safety
-- Do not paste your API keys into chat or public repos. The strings you posted look like API keys — never share them publicly.
-- If you accidentally exposed a key, rotate it immediately from your OpenAI dashboard and delete the old key.
-
-## How to extend this project
-- Replace `backend/college_data.json` with your college's real data
-- Set `college_page_url` to your actual website or ERP URL
-- Enhance `smart_answer()` in `backend/app.py` with OpenAI or another NLP service
-- Add role-based pages for Student, Faculty, and Admin
-- Build a React frontend if you want a richer SPA experience
-
-## Suggested next features
-- Live ERP connection for attendance and exam results
-- Student login with JWT authentication
-- Voice query support and multilingual responses
-- Mobile app using React Native or Flutter
+## Ideas for future improvements
+- Add an admin page to edit `college_data.json` from the browser
+- Add student login and JWT-based authentication
+- Connect to the real Galgotias ERP for live attendance, fee status, and exam schedules
+- Add voice input or multilingual support
+- Deploy with Docker or a cloud hosting service
