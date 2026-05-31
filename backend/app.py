@@ -169,10 +169,8 @@ def answer_website():
     if not url:
         return 'No college website is configured yet. Please update the backend data source.'
 
-    text = fetch_college_page(url)
-    if text:
-        return f'The college website is available at {url}. I can also use this page to provide more detailed answers when connected.'
-    return f'The college website is available at {url}, but I could not fetch it right now.'
+    return (f'The college portal is available at {url}. '
+            'Use your Galgotias University login credentials to access the ERP portal for attendance, notices, and academic updates.')
 
 
 def answer_general(query):
