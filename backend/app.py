@@ -114,14 +114,17 @@ def local_answer(query):
 def smart_answer(query, role='student'):
     query_text = query.strip()
     if not query_text:
-        return 'Please type a question about your college timetable, notices, attendance, fees, or faculty.'
+        return {
+            'answer': 'Please type a question about your college timetable, notices, attendance, fees, or faculty.',
+            'source': 'prompt'
+        }
 
     if openai and OPENAI_API_KEY:
         answer = get_openai_response(query_text)
         if answer:
-            return answer
+            return {'answer': answer, 'source': 'openai'}
 
-    return local_answer(query_text.lower())
+    return {'answer': local_answer(query_text.lower()), 'source': 'fallback'}
 
 
 def answer_timetable(query):
@@ -182,8 +185,11 @@ def api_query():
     body = request.get_json(force=True)
     query = body.get('query', '')
     role = body.get('role', 'student')
-    answer = smart_answer(query, role)
-    return jsonify({'answer': answer})
+    result = smart_answer(query, role)
+    return jsonify({
+        'answer': result.get('answer'),
+        'source': result.get('source', 'fallback')
+    })
 
 
 @app.route('/api/college-data', methods=['GET'])

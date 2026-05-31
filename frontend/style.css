@@ -214,6 +214,13 @@ input {
   justify-self: start;
 }
 
+.message-source {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: var(--muted);
+  opacity: 0.85;
+}
+
 .chat-form {
   display: grid;
   grid-template-columns: 1fr auto;

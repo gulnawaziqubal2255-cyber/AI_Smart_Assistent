@@ -5,10 +5,17 @@ const heroStats = document.getElementById('heroStats');
 const dashboardGrid = document.getElementById('dashboardGrid');
 const scrollToChat = document.getElementById('scrollToChat');
 
-function addMessage(text, role) {
+function addMessage(text, role, source) {
   const div = document.createElement('div');
   div.className = `message ${role}`;
   div.textContent = text;
+  if (role === 'assistant' && source) {
+    const sourceTag = document.createElement('div');
+    sourceTag.className = 'message-source';
+    sourceTag.textContent = `Source: ${source === 'openai' ? 'OpenAI GPT' : source === 'fallback' ? 'Local college data' : 'System'}`;
+    div.appendChild(document.createElement('br'));
+    div.appendChild(sourceTag);
+  }
   chatWindow.appendChild(div);
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
@@ -73,9 +80,9 @@ async function sendQuery(message) {
       body: JSON.stringify({ query: message, role: 'student' })
     });
     const data = await response.json();
-    addMessage(data.answer, 'assistant');
+    addMessage(data.answer, 'assistant', data.source);
   } catch (error) {
-    addMessage('Unable to contact the backend. Please start the server and try again.', 'assistant');
+    addMessage('Unable to contact the backend. Please start the server and try again.', 'assistant', 'error');
   }
 }
 
