@@ -4,6 +4,18 @@ const queryInput = document.getElementById('queryInput');
 const heroStats = document.getElementById('heroStats');
 const dashboardGrid = document.getElementById('dashboardGrid');
 const scrollToChat = document.getElementById('scrollToChat');
+const QUICK_ACTIONS = [
+  { label: 'Latest Notices', query: 'Show me the latest notices' },
+  { label: 'My Attendance', query: 'What is my attendance percentage?' },
+  { label: 'CSE Timetable', query: 'What is the CSE timetable?' },
+  { label: 'Hostel Fee Due Date', query: 'When is the hostel fee due?' }
+];
+const FAQ_ITEMS = [
+  'How do I login to the ERP portal?',
+  'What is the campus address?',
+  'When is semester exam registration?',
+  'How can I apply for scholarships?'
+];
 
 function addMessage(text, role, source) {
   const div = document.createElement('div');
@@ -27,6 +39,9 @@ async function loadCollegeData() {
     renderHeroStats(data.stats);
     renderDashboardCards(data);
     renderCampusContact(data);
+    renderOpenAIStatus(data.openai_enabled);
+    renderQuickActions();
+    renderFAQ();
   } catch (error) {
     console.error('Unable to load college data:', error);
   }
@@ -70,6 +85,37 @@ function renderDashboardCards(data) {
       <p>${card.content.replace(/\n/g, '<br>')}</p>
     </div>
   `).join('');
+}
+
+function renderOpenAIStatus(enabled) {
+  const status = document.getElementById('openaiStatus');
+  if (!status) return;
+  status.textContent = enabled ? 'OpenAI enabled — richer answers available' : 'OpenAI disabled — using local college data';
+  status.className = `status-pill ${enabled ? 'status-enabled' : 'status-disabled'}`;
+}
+
+function renderQuickActions() {
+  const container = document.getElementById('quickActions');
+  if (!container) return;
+  container.innerHTML = QUICK_ACTIONS.map(action => `
+    <button type="button" class="quick-action-button" data-query="${action.query}">
+      ${action.label}
+    </button>
+  `).join('');
+  container.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', () => sendQuery(button.dataset.query));
+  });
+}
+
+function renderFAQ() {
+  const faqContainer = document.getElementById('faqList');
+  if (!faqContainer) return;
+  faqContainer.innerHTML = FAQ_ITEMS.map(item => `
+    <button type="button" class="faq-item">${item}</button>
+  `).join('');
+  faqContainer.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', () => sendQuery(button.textContent));
+  });
 }
 
 function renderCampusContact(data) {

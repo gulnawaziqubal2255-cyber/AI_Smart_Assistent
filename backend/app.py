@@ -21,6 +21,7 @@ with open(DATA_FILE, 'r', encoding='utf-8') as f:
     college_data = json.load(f)
 
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', '').strip()
+OPENAI_ENABLED = bool(openai and OPENAI_API_KEY)
 if openai and OPENAI_API_KEY:
     openai.api_key = OPENAI_API_KEY
 
@@ -210,7 +211,8 @@ def api_college_data():
         'events': college_data.get('events'),
         'departments': college_data.get('departments'),
         'website': college_data.get('college_page_url'),
-        'contact': college_data.get('contact')
+        'contact': college_data.get('contact'),
+        'openai_enabled': OPENAI_ENABLED
     }
     return jsonify(data)
 
