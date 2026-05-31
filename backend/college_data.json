@@ -1,50 +1,64 @@
 {
-  "college_name": "University Polytechnic - Galgotias University",
+  "college_name": "Galgotias University",
   "college_page_url": "https://gulms.galgotiasuniversity.org/login/index.php?loginredirect=1",
-  "about": "An AI-powered college assistant that helps students and faculty access timetables, notices, attendance, fees, and department information instantly. Use the Galgotias University ERP login portal for official academic services.",
+  "about": "Galgotias University is a private university established in 2011 by Suneel Galgotia on the Yamuna Expressway, Greater Noida. The campus spans over 52 acres and includes modern engineering, management, law and pharmacy facilities. This AI assistant helps students quickly access timetables, notices, attendance, fees, portal links, and campus services.",
   "stats": {
-    "students": 1150,
-    "departments": 6,
-    "faculty": 42,
+    "students": 14500,
+    "departments": 12,
+    "faculty": 520,
     "notices": 8
   },
   "departments": [
     "Computer Science & Engineering",
     "Mechanical Engineering",
     "Civil Engineering",
-    "Electronics Engineering",
+    "Electronics & Communication Engineering",
     "Information Technology",
-    "Applied Sciences"
+    "Management & Business Administration",
+    "Pharmacy",
+    "Law",
+    "Architecture",
+    "Applied Sciences",
+    "Journalism & Mass Communication",
+    "Education"
   ],
   "events": [
-    {"title": "Summer Internship Fair", "date": "2026-06-05"},
-    {"title": "Sports Fest Registration", "date": "2026-06-10"},
-    {"title": "AI Workshop", "date": "2026-06-15"}
+    {"title": "AI & Robotics Symposium", "date": "2026-06-10"},
+    {"title": "Placement Drive with TCS", "date": "2026-06-18"},
+    {"title": "Industry-Academia Conclave", "date": "2026-06-25"}
   ],
   "timetable": {
-    "CSE": "CSE timetable:\nMon: DBMS, Tue: OS, Wed: Data Structures, Thu: AI, Fri: Web Dev",
-    "ME": "Mechanical timetable:\nMon: Thermodynamics, Tue: Fluid Mechanics, Wed: CAD, Thu: Manufacturing, Fri: Materials",
-    "Civil": "Civil timetable:\nMon: Strength of Materials, Tue: Surveying, Wed: Environmental Engg, Thu: Design of RCC, Fri: Soil Mechanics"
+    "CSE": "CSE timetable:\nMon: Data Structures, Tue: Operating Systems, Wed: Database Systems, Thu: Artificial Intelligence, Fri: Web Development",
+    "ME": "Mechanical timetable:\nMon: Thermodynamics, Tue: Fluid Mechanics, Wed: Machine Design, Thu: CAD/CAM, Fri: Manufacturing Processes",
+    "Civil": "Civil timetable:\nMon: Strength of Materials, Tue: Surveying, Wed: Environmental Engineering, Thu: RCC Design, Fri: Transportation Engineering"
   },
   "attendance": {
     "current": "Your current attendance is 82% in Semester 5.",
-    "summary": "Most students have attendance between 75% and 92%."
+    "summary": "Most students have attendance between 76% and 94% across departments."
   },
   "notices": [
-    {"title": "Exam Schedule Released", "date": "2026-05-20"},
-    {"title": "Hostel Fee Due Date", "date": "2026-05-22"},
-    {"title": "Sports Fest Registration Open", "date": "2026-05-25"},
-    {"title": "New Library Hours", "date": "2026-05-27"}
+    {"title": "ERP Maintenance Notice", "date": "2026-06-05"},
+    {"title": "Semester Exam Registration Opens", "date": "2026-06-07"},
+    {"title": "Hostel Fee Payment Deadline", "date": "2026-06-10"},
+    {"title": "Sports Trials for Fest", "date": "2026-06-12"}
   ],
   "fees": {
-    "general": "Tuition fees for the semester are due by June 10. Please visit the finance office or online ERP to pay.",
-    "hostel": "Hostel fees are due by June 5. Submit payment at the hostel accounts office.",
-    "scholarship": "Scholarship applications are open until July 1. Contact student affairs for details."
+    "general": "Semester tuition fees vary by program; most undergraduate engineering programs range from ₹1.7 lakh to ₹2.5 lakh per year. Check the portal for your exact fee details.",
+    "hostel": "Hostel fees are due by June 5. Pay through the student ERP or the hostel accounts office.",
+    "scholarship": "Scholarship applications are open until July 1. Contact the scholarship cell or ERP for eligibility and documents."
   },
   "faculty": [
-    {"name": "Dr. Priya Sharma", "subject": "Artificial Intelligence", "designation": "Assistant Professor", "expertise": "AI, ML"},
-    {"name": "Mr. Ravi Gupta", "subject": "Database Systems", "designation": "Associate Professor", "expertise": "DBMS, SQL"},
-    {"name": "Ms. Neha Singh", "subject": "Web Development", "designation": "Assistant Professor", "expertise": "React, JavaScript"},
-    {"name": "Dr. Sunita Verma", "subject": "Thermodynamics", "designation": "Professor", "expertise": "Mechanical Engineering"}
-  ]
+    {"name": "Dr. Nidhi Agarwal", "subject": "Artificial Intelligence", "designation": "Assistant Professor", "expertise": "AI, Machine Learning"},
+    {"name": "Dr. Rajeev Mishra", "subject": "Thermodynamics", "designation": "Associate Professor", "expertise": "Mechanical Engineering"},
+    {"name": "Dr. Pooja Verma", "subject": "Environmental Engineering", "designation": "Professor", "expertise": "Civil and Infrastructure"},
+    {"name": "Mr. Aman Singh", "subject": "Data Science", "designation": "Assistant Professor", "expertise": "Python, Analytics"},
+    {"name": "Ms. Simran Kaur", "subject": "Business Analytics", "designation": "Assistant Professor", "expertise": "Marketing, Finance"}
+  ],
+  "contact": {
+    "address": "Yamuna Expressway, Greater Noida, Uttar Pradesh 203201",
+    "phone": "+91 120 4370000",
+    "email": "info@galgotiasuniversity.edu.in",
+    "campus_size": "52 acres",
+    "established": "2011"
+  }
 }

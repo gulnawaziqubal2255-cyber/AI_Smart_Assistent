@@ -44,6 +44,15 @@ def build_openai_prompt(query):
     departments = ', '.join(college_data.get('departments', []))
     faculty_list = '\n'.join([f"- {f['name']} ({f['subject']})" for f in college_data.get('faculty', [])])
 
+    contact = college_data.get('contact', {})
+    contact_info = (
+        f"Address: {contact.get('address', 'N/A')}\n"
+        f"Phone: {contact.get('phone', 'N/A')}\n"
+        f"Email: {contact.get('email', 'N/A')}\n"
+        f"Campus size: {contact.get('campus_size', 'N/A')}\n"
+        f"Established: {contact.get('established', 'N/A')}\n"
+    )
+
     prompt = (
         f"You are an AI college assistant for {college_data.get('college_name')} at Galgotias University. "
         f"Use the college information below to answer the user's question clearly and politely. "
@@ -58,7 +67,8 @@ def build_openai_prompt(query):
         f"Tuition fees: {college_data.get('fees', {}).get('general')}\n"
         f"Hostel fees: {college_data.get('fees', {}).get('hostel')}\n"
         f"Attendance summary: {college_data.get('attendance', {}).get('summary')}\n"
-        f"Timetables: {', '.join(college_data.get('timetable', {}).keys())}\n\n"
+        f"Timetables: {', '.join(college_data.get('timetable', {}).keys())}\n"
+        f"Contact:\n{contact_info}\n"
         f"Answer the following question from the user:\n{query}\n"
         f"Keep the response short, friendly, and useful."
     )
@@ -199,7 +209,8 @@ def api_college_data():
         'notices': college_data.get('notices'),
         'events': college_data.get('events'),
         'departments': college_data.get('departments'),
-        'website': college_data.get('college_page_url')
+        'website': college_data.get('college_page_url'),
+        'contact': college_data.get('contact')
     }
     return jsonify(data)
 

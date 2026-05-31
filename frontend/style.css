@@ -155,12 +155,22 @@ input {
   gap: 20px;
 }
 
-.dashboard-card {
+.dashboard-card,
+.campus-card {
   background: rgba(17, 24, 39, 0.95);
   border: 1px solid var(--border);
   border-radius: 24px;
   padding: 24px;
   box-shadow: var(--shadow);
+}
+
+.campus-panel {
+  margin-top: 20px;
+}
+
+.campus-card h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
 }
 
 .intro-card p {

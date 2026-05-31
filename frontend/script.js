@@ -26,6 +26,7 @@ async function loadCollegeData() {
     const data = await response.json();
     renderHeroStats(data.stats);
     renderDashboardCards(data);
+    renderCampusContact(data);
   } catch (error) {
     console.error('Unable to load college data:', error);
   }
@@ -69,6 +70,19 @@ function renderDashboardCards(data) {
       <p>${card.content.replace(/\n/g, '<br>')}</p>
     </div>
   `).join('');
+}
+
+function renderCampusContact(data) {
+  const contact = data.contact || {};
+  const lines = [
+    contact.address,
+    contact.phone && `Phone: ${contact.phone}`,
+    contact.email && `Email: ${contact.email}`,
+    contact.campus_size && `Campus size: ${contact.campus_size}`,
+    contact.established && `Established: ${contact.established}`
+  ].filter(Boolean);
+  const contactText = lines.length ? lines.join('\n') : 'Contact details are being updated.';
+  document.getElementById('campusContactText').innerHTML = contactText.replace(/\n/g, '<br>');
 }
 
 async function sendQuery(message) {
