@@ -98,31 +98,41 @@ def get_openai_response(query):
 
 
 def local_answer(query):
-    if any(term in query for term in ['timetable', 'schedule', 'class', 'period', 'subject']):
-        return answer_timetable(query)
+    query_lower = query.lower()
+    students = college_data.get('students', [])
+    faculty = college_data.get('faculty', [])
 
-    if any(term in query for term in ['attendance', 'present', 'absent', 'percent']):
-        return answer_attendance(query)
-
-    if any(term in query for term in ['notice', 'circular', 'announcement', 'news']):
-        return answer_notices()
-
-    if any(term in query for term in ['fee', 'fees', 'tuition', 'hostel', 'payment', 'scholarship']):
-        return answer_fee(query)
-
-    if any(term in query for term in ['teacher', 'faculty', 'professor', 'mentor', 'staff']):
-        return answer_faculty(query)
-
-    if any(term in query for term in ['website', 'web page', 'website link', 'college page']):
-        return answer_website()
-
-    if any(term in query for term in ['exam', 'test', 'evaluation', 'paper']):
-        return answer_exam(query)
-
-    if any(term in query for term in ['student', 'roll', 'roll no', 'roll number', 'name']):
+    if any(student['name'].lower() in query_lower or student['roll_no'].lower() in query_lower for student in students):
         return answer_student(query)
 
-    if any(term in query for term in ['about college', 'about', 'information', 'who are', 'what is']):
+    if any(f['name'].lower() in query_lower or f['subject'].lower() in query_lower for f in faculty):
+        return answer_faculty(query)
+
+    if any(term in query_lower for term in ['timetable', 'schedule', 'class', 'period', 'subject']):
+        return answer_timetable(query)
+
+    if any(term in query_lower for term in ['attendance', 'present', 'absent', 'percent']):
+        return answer_attendance(query)
+
+    if any(term in query_lower for term in ['notice', 'circular', 'announcement', 'news']):
+        return answer_notices()
+
+    if any(term in query_lower for term in ['fee', 'fees', 'tuition', 'hostel', 'payment', 'scholarship']):
+        return answer_fee(query)
+
+    if any(term in query_lower for term in ['teacher', 'faculty', 'professor', 'mentor', 'staff']):
+        return answer_faculty(query)
+
+    if any(term in query_lower for term in ['website', 'web page', 'website link', 'college page']):
+        return answer_website()
+
+    if any(term in query_lower for term in ['exam', 'test', 'evaluation', 'paper']):
+        return answer_exam(query)
+
+    if any(term in query_lower for term in ['student', 'roll', 'roll no', 'roll number', 'name']):
+        return answer_student(query)
+
+    if any(term in query_lower for term in ['about college', 'about', 'information', 'who are', 'what is']):
         return college_data.get('about', 'This is your AI College Assistant for academic information.')
 
     return answer_general(query)
