@@ -322,6 +322,138 @@ input {
   cursor: pointer;
 }
 
+.student-search-input {
+  width: 100%;
+  padding: 12px 16px;
+  margin: 16px 0;
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease;
+}
+
+.student-search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+}
+
+.student-result-container {
+  margin-top: 16px;
+}
+
+.student-card {
+  background: var(--panel-soft);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+}
+
+.student-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.1);
+}
+
+.student-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 12px;
+}
+
+.student-header h3 {
+  margin: 0 0 4px 0;
+  color: var(--text);
+  font-size: 1.1rem;
+}
+
+.student-header .roll-no {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.cgpa-badge {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #020617;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  min-width: 50px;
+  text-align: center;
+}
+
+.student-details {
+  display: grid;
+  gap: 8px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.detail-row .label {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.detail-row span:last-child {
+  color: var(--text);
+  text-align: right;
+  font-weight: 500;
+}
+
+.attendance-good {
+  color: #86efac;
+  font-weight: 600;
+}
+
+.attendance-warning {
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+.fee-paid {
+  color: #86efac;
+  font-weight: 600;
+}
+
+.fee-pending {
+  color: #fca5a5;
+  font-weight: 600;
+}
+
+.attendance-breakdown {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.attendance-breakdown p {
+  margin: 4px 0;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.subject-attendance {
+  color: var(--muted);
+  margin-left: 8px;
+}
+
+.no-results {
+  text-align: center;
+  color: var(--muted);
+  padding: 12px 0;
+  font-size: 0.9rem;
+}
+
 @media (max-width: 960px) {
   .hero-panel {
     grid-template-columns: 1fr;

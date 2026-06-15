@@ -3,29 +3,253 @@
   "college_page_url": "https://gulms.galgotiasuniversity.org/login/index.php?loginredirect=1",
   "about": "Galgotias University is a private university established in 2011 by Suneel Galgotia on the Yamuna Expressway, Greater Noida. The campus spans over 52 acres and includes modern engineering, management, law and pharmacy facilities. This AI assistant helps students quickly access timetables, notices, attendance, fees, portal links, and campus services.",
   "stats": {
-    "students": 14500,
-    "departments": 12,
-    "faculty": 520,
-    "notices": 8
+    "students": 10,
+    "departments": 1,
+    "faculty": 5,
+    "notices": 5
   },
   "departments": [
-    "Computer Science & Engineering",
-    "Mechanical Engineering",
-    "Civil Engineering",
-    "Electronics & Communication Engineering",
-    "Information Technology",
-    "Management & Business Administration",
-    "Pharmacy",
-    "Law",
-    "Architecture",
-    "Applied Sciences",
-    "Journalism & Mass Communication",
-    "Education"
+    "Computer Science & Engineering"
   ],
   "events": [
     {"title": "AI & Robotics Symposium", "date": "2026-06-10"},
     {"title": "Placement Drive with TCS", "date": "2026-06-18"},
     {"title": "Industry-Academia Conclave", "date": "2026-06-25"}
+  ],
+  "subjects": [
+    {"name": "Database Management System (DBMS)", "code": "DBMS"},
+    {"name": "Data Structures", "code": "DS"},
+    {"name": "Internet of Things (IoT)", "code": "IoT"},
+    {"name": "Microprocessor", "code": "MP"},
+    {"name": "Web Technology", "code": "WT"}
+  ],
+  "students": [
+    {
+      "name": "MD Ayan",
+      "roll_no": "23GPTC4060163",
+      "department": "Computer Science & Engineering",
+      "semester": 5,
+      "attendance": {
+        "DBMS": 89,
+        "Data Structures": 92,
+        "IoT": 87,
+        "Microprocessor": 90,
+        "Web Technology": 94,
+        "overall": 90
+      },
+      "fee_status": "Paid",
+      "fee_amount": 0,
+      "hostel": "Boys Hostel A, Room A-203",
+      "cgpa": 8.8
+    },
+    {
+      "name": "MD Zafar Kamal",
+      "roll_no": "23GPTC4060144",
+      "department": "Computer Science & Engineering",
+      "semester": 5,
+      "attendance": {
+        "DBMS": 82,
+        "Data Structures": 78,
+        "IoT": 80,
+        "Microprocessor": 76,
+        "Web Technology": 84,
+        "overall": 80
+      },
+      "fee_status": "Paid",
+      "fee_amount": 0,
+      "hostel": "Boys Hostel A, Room A-205",
+      "cgpa": 7.8
+    },
+    {
+      "name": "Sameer Sohail",
+      "roll_no": "23GPTC4060162",
+      "department": "Computer Science & Engineering",
+      "semester": 5,
+      "attendance": {
+        "DBMS": 95,
+        "Data Structures": 93,
+        "IoT": 91,
+        "Microprocessor": 89,
+        "Web Technology": 96,
+        "overall": 93
+      },
+      "fee_status": "Paid",
+      "fee_amount": 0,
+      "hostel": "Boys Hostel B, Room B-112",
+      "cgpa": 9.2
+    },
+    {
+      "name": "Gulnawaz Iqubal",
+      "roll_no": "23GPTC4060056",
+      "department": "Computer Science & Engineering",
+      "semester": 5,
+      "attendance": {
+        "DBMS": 75,
+        "Data Structures": 72,
+        "IoT": 78,
+        "Microprocessor": 74,
+        "Web Technology": 80,
+        "overall": 76
+      },
+      "fee_status": "Pending",
+      "fee_amount": 8500,
+      "hostel": "Boys Hostel B, Room B-115",
+      "cgpa": 7.2
+    },
+    {
+      "name": "Zuha Bundmare",
+      "roll_no": "23GPTC4060069",
+      "department": "Computer Science & Engineering",
+      "semester": 5,
+      "attendance": {
+        "DBMS": 88,
+        "Data Structures": 85,
+        "IoT": 90,
+        "Microprocessor": 86,
+        "Web Technology": 91,
+        "overall": 88
+      },
+      "fee_status": "Paid",
+      "fee_amount": 0,
+      "hostel": "Girls Hostel A, Room G-108",
+      "cgpa": 8.6
+    },
+    {
+      "name": "Arman Khan",
+      "roll_no": "23GPTC4060071",
+      "department": "Computer Science & Engineering",
+      "semester": 5,
+      "attendance": {
+        "DBMS": 69,
+        "Data Structures": 73,
+        "IoT": 71,
+        "Microprocessor": 70,
+        "Web Technology": 75,
+        "overall": 72
+      },
+      "fee_status": "Pending",
+      "fee_amount": 12000,
+      "hostel": "Boys Hostel A, Room A-312",
+      "cgpa": 7.0
+    },
+    {
+      "name": "Priya Sharma",
+      "roll_no": "23GPTC4060082",
+      "department": "Computer Science & Engineering",
+      "semester": 5,
+      "attendance": {
+        "DBMS": 96,
+        "Data Structures": 94,
+        "IoT": 97,
+        "Microprocessor": 95,
+        "Web Technology": 98,
+        "overall": 96
+      },
+      "fee_status": "Paid",
+      "fee_amount": 0,
+      "hostel": "Girls Hostel A, Room G-210",
+      "cgpa": 9.5
+    },
+    {
+      "name": "Rohit Verma",
+      "roll_no": "23GPTC4060094",
+      "department": "Computer Science & Engineering",
+      "semester": 5,
+      "attendance": {
+        "DBMS": 84,
+        "Data Structures": 82,
+        "IoT": 85,
+        "Microprocessor": 80,
+        "Web Technology": 87,
+        "overall": 84
+      },
+      "fee_status": "Paid",
+      "fee_amount": 0,
+      "hostel": "Boys Hostel B, Room B-305",
+      "cgpa": 8.4
+    },
+    {
+      "name": "Sana Fatima",
+      "roll_no": "23GPTC4060107",
+      "department": "Computer Science & Engineering",
+      "semester": 5,
+      "attendance": {
+        "DBMS": 91,
+        "Data Structures": 89,
+        "IoT": 92,
+        "Microprocessor": 90,
+        "Web Technology": 94,
+        "overall": 91
+      },
+      "fee_status": "Paid",
+      "fee_amount": 0,
+      "hostel": "Girls Hostel B, Room G-115",
+      "cgpa": 8.9
+    },
+    {
+      "name": "Aditya Singh",
+      "roll_no": "23GPTC4060115",
+      "department": "Computer Science & Engineering",
+      "semester": 5,
+      "attendance": {
+        "DBMS": 77,
+        "Data Structures": 79,
+        "IoT": 76,
+        "Microprocessor": 78,
+        "Web Technology": 81,
+        "overall": 78
+      },
+      "fee_status": "Pending",
+      "fee_amount": 5000,
+      "hostel": "Boys Hostel A, Room A-121",
+      "cgpa": 7.6
+    }
+  ],
+  "weekly_timetable": {
+    "CSE_Diploma": {
+      "Monday": [
+        {"time": "9:00–10:00", "subject": "Database Management System (DBMS)"},
+        {"time": "10:00–11:00", "subject": "Data Structures"},
+        {"time": "11:00–12:00", "subject": "Internet of Things (IoT)"},
+        {"time": "1:00–2:00", "subject": "Microprocessor"},
+        {"time": "2:00–3:00", "subject": "Web Technology"}
+      ],
+      "Tuesday": [
+        {"time": "9:00–10:00", "subject": "Data Structures"},
+        {"time": "10:00–11:00", "subject": "Database Management System (DBMS)"},
+        {"time": "11:00–12:00", "subject": "Web Technology"},
+        {"time": "1:00–2:00", "subject": "Internet of Things (IoT)"},
+        {"time": "2:00–3:00", "subject": "Microprocessor"}
+      ],
+      "Wednesday": [
+        {"time": "9:00–10:00", "subject": "Internet of Things (IoT)"},
+        {"time": "10:00–11:00", "subject": "Data Structures"},
+        {"time": "11:00–12:00", "subject": "Database Management System (DBMS)"},
+        {"time": "1:00–2:00", "subject": "Web Technology"},
+        {"time": "2:00–3:00", "subject": "Microprocessor"}
+      ],
+      "Thursday": [
+        {"time": "9:00–10:00", "subject": "Microprocessor"},
+        {"time": "10:00–11:00", "subject": "Internet of Things (IoT)"},
+        {"time": "11:00–12:00", "subject": "Data Structures"},
+        {"time": "1:00–2:00", "subject": "Database Management System (DBMS)"},
+        {"time": "2:00–3:00", "subject": "Web Technology"}
+      ],
+      "Friday": [
+        {"time": "9:00–10:00", "subject": "Web Technology"},
+        {"time": "10:00–11:00", "subject": "Database Management System (DBMS)"},
+        {"time": "11:00–12:00", "subject": "Internet of Things (IoT)"},
+        {"time": "1:00–2:00", "subject": "Data Structures"},
+        {"time": "2:00–3:00", "subject": "Microprocessor"}
+      ]
+    }
+  },
+  "exam_schedule": [
+    {"subject": "Database Management System (DBMS)", "date": "2026-07-15", "time": "10:00 AM"},
+    {"subject": "Data Structures", "date": "2026-07-18", "time": "10:00 AM"},
+    {"subject": "Internet of Things (IoT)", "date": "2026-07-21", "time": "10:00 AM"},
+    {"subject": "Microprocessor", "date": "2026-07-24", "time": "10:00 AM"},
+    {"subject": "Web Technology", "date": "2026-07-27", "time": "10:00 AM"}
   ],
   "timetable": {
     "CSE": "CSE timetable:\nMon: Data Structures, Tue: Operating Systems, Wed: Database Systems, Thu: Artificial Intelligence, Fri: Web Development",
@@ -34,13 +258,14 @@
   },
   "attendance": {
     "current": "Your current attendance is 82% in Semester 5.",
-    "summary": "Most students have attendance between 76% and 94% across departments."
+    "summary": "Most students have attendance between 76% and 96% across subjects."
   },
   "notices": [
-    {"title": "ERP Maintenance Notice", "date": "2026-06-05"},
-    {"title": "Semester Exam Registration Opens", "date": "2026-06-07"},
-    {"title": "Hostel Fee Payment Deadline", "date": "2026-06-10"},
-    {"title": "Sports Trials for Fest", "date": "2026-06-12"}
+    {"title": "End Semester Examinations", "date": "2026-06-15", "content": "End Semester Examinations will begin from 15 July 2026."},
+    {"title": "Attendance Requirement", "date": "2026-06-15", "content": "Students with attendance below 75% may not be allowed to appear in examinations."},
+    {"title": "Final Year Project Viva", "date": "2026-06-15", "content": "Final Year Project Viva is scheduled from 30 July 2026."},
+    {"title": "Library Book Return Deadline", "date": "2026-06-15", "content": "Library books must be returned before 20 July 2026."},
+    {"title": "Campus Maintenance", "date": "2026-06-15", "content": "College campus will remain closed on 17 July 2026 for maintenance work."}
   ],
   "fees": {
     "general": "Semester tuition fees vary by program; most undergraduate engineering programs range from ₹1.7 lakh to ₹2.5 lakh per year. Check the portal for your exact fee details.",
@@ -48,11 +273,41 @@
     "scholarship": "Scholarship applications are open until July 1. Contact the scholarship cell or ERP for eligibility and documents."
   },
   "faculty": [
-    {"name": "Dr. Nidhi Agarwal", "subject": "Artificial Intelligence", "designation": "Assistant Professor", "expertise": "AI, Machine Learning"},
-    {"name": "Dr. Rajeev Mishra", "subject": "Thermodynamics", "designation": "Associate Professor", "expertise": "Mechanical Engineering"},
-    {"name": "Dr. Pooja Verma", "subject": "Environmental Engineering", "designation": "Professor", "expertise": "Civil and Infrastructure"},
-    {"name": "Mr. Aman Singh", "subject": "Data Science", "designation": "Assistant Professor", "expertise": "Python, Analytics"},
-    {"name": "Ms. Simran Kaur", "subject": "Business Analytics", "designation": "Assistant Professor", "expertise": "Marketing, Finance"}
+    {
+      "name": "Dr. Faizan Ahmed",
+      "subject": "Database Management System (DBMS)",
+      "designation": "Assistant Professor",
+      "expertise": "Database Systems, SQL",
+      "availability": "Monday to Friday, 10:00 AM to 1:00 PM"
+    },
+    {
+      "name": "Prof. Neha Gupta",
+      "subject": "Data Structures",
+      "designation": "Associate Professor",
+      "expertise": "Data Structures, Algorithms",
+      "availability": "Monday to Thursday, 11:00 AM to 2:00 PM"
+    },
+    {
+      "name": "Dr. Rajesh Kumar",
+      "subject": "Internet of Things (IoT)",
+      "designation": "Assistant Professor",
+      "expertise": "IoT, Embedded Systems",
+      "availability": "Tuesday to Friday, 9:00 AM to 12:00 PM"
+    },
+    {
+      "name": "Prof. Amit Sharma",
+      "subject": "Microprocessor",
+      "designation": "Associate Professor",
+      "expertise": "Microprocessor, Assembly Language",
+      "availability": "Monday to Friday, 2:00 PM to 4:00 PM"
+    },
+    {
+      "name": "Prof. Pooja Singh",
+      "subject": "Web Technology",
+      "designation": "Assistant Professor",
+      "expertise": "Web Development, HTML, CSS, JavaScript",
+      "availability": "Monday to Friday, 12:00 PM to 3:00 PM"
+    }
   ],
   "contact": {
     "address": "Yamuna Expressway, Greater Noida, Uttar Pradesh 203201",

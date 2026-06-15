@@ -7,8 +7,10 @@ const scrollToChat = document.getElementById('scrollToChat');
 const QUICK_ACTIONS = [
   { label: 'Latest Notices', query: 'Show me the latest notices' },
   { label: 'My Attendance', query: 'What is my attendance percentage?' },
-  { label: 'CSE Timetable', query: 'What is the CSE timetable?' },
-  { label: 'Hostel Fee Due Date', query: 'When is the hostel fee due?' }
+  { label: 'Exam Schedule', query: 'When are the exams scheduled?' },
+  { label: 'Hostel Fee Due Date', query: 'When is the hostel fee due?' },
+  { label: 'All Students', query: 'Show me all students' },
+  { label: 'Faculty List', query: 'Who are the faculty members?' }
 ];
 const FAQ_ITEMS = [
   'How do I login to the ERP portal?',
@@ -148,6 +150,90 @@ async function sendQuery(message) {
 
 queryForm.addEventListener('submit', (event) => {
   event.preventDefault();
+  const message = queryInput.value.trim();
+  if (message) {
+    sendQuery(message);
+    queryInput.value = '';
+  }
+});
+
+// Student search functionality
+const studentSearch = document.getElementById('studentSearch');
+if (studentSearch) {
+  studentSearch.addEventListener('input', async (e) => {
+    const query = e.target.value.trim();
+    if (query.length < 2) {
+      document.getElementById('studentResult').innerHTML = '';
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/student/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        displayStudentResults(data.students);
+      } else {
+        document.getElementById('studentResult').innerHTML = '<p class="no-results">No students found</p>';
+      }
+    } catch (error) {
+      console.error('Error searching students:', error);
+    }
+  });
+}
+
+function displayStudentResults(students) {
+  const container = document.getElementById('studentResult');
+  
+  if (!students || students.length === 0) {
+    container.innerHTML = '<p class="no-results">No matching students found</p>';
+    return;
+  }
+
+  container.innerHTML = students.map(student => `
+    <div class="student-card">
+      <div class="student-header">
+        <div>
+          <h3>${student.name}</h3>
+          <p class="roll-no">Roll No: ${student.roll_no}</p>
+        </div>
+        <div class="cgpa-badge">${student.cgpa}</div>
+      </div>
+      <div class="student-details">
+        <div class="detail-row">
+          <span class="label">Department:</span>
+          <span>${student.department}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Semester:</span>
+          <span>${student.semester}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Overall Attendance:</span>
+          <span class="attendance-${student.attendance.overall >= 75 ? 'good' : 'warning'}">${student.attendance.overall}%</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Fee Status:</span>
+          <span class="fee-${student.fee_status.toLowerCase()}">${student.fee_status}${student.fee_status === 'Pending' ? ' (₹' + student.fee_amount + ')' : ''}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Hostel:</span>
+          <span>${student.hostel}</span>
+        </div>
+        <div class="attendance-breakdown">
+          <p><strong>Subject-wise Attendance:</strong></p>
+          ${Object.entries(student.attendance).filter(([k]) => k !== 'overall').map(([subject, percent]) => 
+            `<p class="subject-attendance">• ${subject}: ${percent}%</p>`
+          ).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
   const message = queryInput.value.trim();
   if (!message) return;
   queryInput.value = '';

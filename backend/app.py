@@ -116,6 +116,12 @@ def local_answer(query):
     if any(term in query for term in ['website', 'web page', 'website link', 'college page']):
         return answer_website()
 
+    if any(term in query for term in ['exam', 'test', 'evaluation', 'paper']):
+        return answer_exam(query)
+
+    if any(term in query for term in ['student', 'roll', 'roll no', 'roll number', 'name']):
+        return answer_student(query)
+
     if any(term in query for term in ['about college', 'about', 'information', 'who are', 'what is']):
         return college_data.get('about', 'This is your AI College Assistant for academic information.')
 
@@ -186,7 +192,44 @@ def answer_website():
 
 def answer_general(query):
     return ('I am your AI College Assistant. Ask me about timetable, attendance, notices, fees, faculty, '
-            'or the college website. For example: "Show me the exam notice" or "What is the Computer Science schedule?"')
+            'exams, or student information. For example: "Show me the exam schedule" or "What is Priya\'s attendance?"')
+
+
+def answer_exam(query):
+    """Answer questions about exam schedule"""
+    exams = college_data.get('exam_schedule', [])
+    if not exams:
+        return 'No exam schedule available.'
+    
+    exam_info = 'Upcoming Exam Schedule:\n'
+    for exam in exams:
+        exam_info += f"- {exam['subject']}: {exam['date']} at {exam['time']}\n"
+    return exam_info
+
+
+def answer_student(query):
+    """Answer questions about students"""
+    students = college_data.get('students', [])
+    
+    # Try to find a student by name or roll number
+    for student in students:
+        if student['name'].lower() in query or student['roll_no'].lower() in query:
+            return (
+                f"Student: {student['name']}\n"
+                f"Roll No: {student['roll_no']}\n"
+                f"Department: {student['department']}\n"
+                f"CGPA: {student['cgpa']}\n"
+                f"Overall Attendance: {student['attendance']['overall']}%\n"
+                f"Fee Status: {student['fee_status']}" + 
+                (f" (₹{student['fee_amount']} pending)" if student['fee_status'] == 'Pending' else "") + "\n"
+                f"Hostel: {student['hostel']}"
+            )
+    
+    # If no specific student found, show all students
+    student_list = "All Students:\n"
+    for student in students:
+        student_list += f"- {student['name']} ({student['roll_no']}) - Attendance: {student['attendance']['overall']}%\n"
+    return student_list
 
 
 @app.route('/api/query', methods=['POST'])
@@ -215,6 +258,41 @@ def api_college_data():
         'openai_enabled': OPENAI_ENABLED
     }
     return jsonify(data)
+
+
+@app.route('/api/students', methods=['GET'])
+def api_get_students():
+    """Get all students in the system"""
+    students = college_data.get('students', [])
+    return jsonify({'students': students})
+
+
+@app.route('/api/student/<roll_no>', methods=['GET'])
+def api_get_student(roll_no):
+    """Get a specific student by roll number"""
+    students = college_data.get('students', [])
+    student = next((s for s in students if s['roll_no'] == roll_no), None)
+    if not student:
+        return jsonify({'error': 'Student not found'}), 404
+    return jsonify(student)
+
+
+@app.route('/api/student/search', methods=['POST'])
+def api_search_student():
+    """Search for a student by name or roll number"""
+    body = request.get_json(force=True)
+    query = body.get('query', '').lower().strip()
+    
+    if not query:
+        return jsonify({'error': 'Please provide a search query'}), 400
+    
+    students = college_data.get('students', [])
+    matches = [s for s in students if query in s['name'].lower() or query in s['roll_no'].lower()]
+    
+    if not matches:
+        return jsonify({'error': 'No students found matching your query'}), 404
+    
+    return jsonify({'students': matches})
 
 
 @app.route('/', defaults={'path': ''})
