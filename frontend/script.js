@@ -6,17 +6,18 @@ const dashboardGrid = document.getElementById('dashboardGrid');
 const scrollToChat = document.getElementById('scrollToChat');
 const QUICK_ACTIONS = [
   { label: 'Latest Notices', query: 'Show me the latest notices' },
-  { label: 'My Attendance', query: 'What is my attendance percentage?' },
   { label: 'Exam Schedule', query: 'When are the exams scheduled?' },
-  { label: 'Hostel Fee Due Date', query: 'When is the hostel fee due?' },
   { label: 'All Students', query: 'Show me all students' },
-  { label: 'Faculty List', query: 'Who are the faculty members?' }
+  { label: 'Faculty List', query: 'Who are the faculty members?' },
+  { label: 'Pending Fees', query: 'Which students have pending fees?' },
+  { label: 'Hostel Info', query: 'Tell me about hostel fees' }
 ];
 const FAQ_ITEMS = [
-  'How do I login to the ERP portal?',
-  'What is the campus address?',
-  'When is semester exam registration?',
-  'How can I apply for scholarships?'
+  'Show me all students',
+  'Who are the faculty members?',
+  'Which students have pending fees?',
+  'What is the exam schedule?',
+  'Tell me about faculty availability'
 ];
 
 function addMessage(text, role, source) {
@@ -186,6 +187,35 @@ if (studentSearch) {
   });
 }
 
+// Faculty search functionality
+const facultySearch = document.getElementById('facultySearch');
+if (facultySearch) {
+  facultySearch.addEventListener('input', async (e) => {
+    const query = e.target.value.trim();
+    if (query.length < 2) {
+      document.getElementById('facultyResult').innerHTML = '';
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/faculty/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        displayFacultyResults(data.faculty);
+      } else {
+        document.getElementById('facultyResult').innerHTML = '<p class="no-results">No faculty found</p>';
+      }
+    } catch (error) {
+      console.error('Error searching faculty:', error);
+    }
+  });
+}
+
 function displayStudentResults(students) {
   const container = document.getElementById('studentResult');
   
@@ -229,6 +259,40 @@ function displayStudentResults(students) {
           ${Object.entries(student.attendance).filter(([k]) => k !== 'overall').map(([subject, percent]) => 
             `<p class="subject-attendance">• ${subject}: ${percent}%</p>`
           ).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function displayFacultyResults(faculty) {
+  const container = document.getElementById('facultyResult');
+  
+  if (!faculty || faculty.length === 0) {
+    container.innerHTML = '<p class="no-results">No matching faculty found</p>';
+    return;
+  }
+
+  container.innerHTML = faculty.map(member => `
+    <div class="faculty-card">
+      <div class="faculty-header">
+        <div>
+          <h3>${member.name}</h3>
+          <p class="designation">${member.designation}</p>
+        </div>
+      </div>
+      <div class="faculty-details">
+        <div class="detail-row">
+          <span class="label">Subject:</span>
+          <span>${member.subject}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Expertise:</span>
+          <span>${member.expertise}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Availability:</span>
+          <span>${member.availability}</span>
         </div>
       </div>
     </div>

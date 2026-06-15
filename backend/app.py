@@ -174,11 +174,31 @@ def answer_fee(query):
 
 
 def answer_faculty(query):
-    if 'ai' in query or 'machine' in query:
-        faculty = [f for f in college_data['faculty'] if 'AI' in f['expertise'] or 'ML' in f['expertise']]
-        if faculty:
-            return '\n'.join([f"{f['name']} — {f['designation']} ({f['subject']})" for f in faculty])
-    return 'Faculty list:\n' + '\n'.join([f"- {f['name']} ({f['subject']})" for f in college_data['faculty']])
+    """Answer questions about faculty members"""
+    faculty_list = college_data.get('faculty', [])
+    
+    # Search for specific faculty by expertise if mentioned
+    if 'ai' in query or 'machine' in query or 'ml' in query:
+        faculty_matches = [f for f in faculty_list if 'AI' in f.get('expertise', '') or 'ML' in f.get('expertise', '')]
+        if faculty_matches:
+            result = '🎓 Faculty Members (AI/ML Experts):\n'
+            for f in faculty_matches:
+                result += f"\n👨‍🏫 {f['name']}\n"
+                result += f"   Subject: {f['subject']}\n"
+                result += f"   Designation: {f['designation']}\n"
+                result += f"   Expertise: {f.get('expertise', 'N/A')}\n"
+                result += f"   Available: {f.get('availability', 'N/A')}"
+            return result
+    
+    # Show all faculty by default
+    result = '🎓 All Faculty Members:\n'
+    for i, f in enumerate(faculty_list, 1):
+        result += f"\n{i}. {f['name']}\n"
+        result += f"   Subject: {f['subject']}\n"
+        result += f"   Designation: {f['designation']}\n"
+        result += f"   Expertise: {f.get('expertise', 'N/A')}\n"
+        result += f"   Available: {f.get('availability', 'N/A')}"
+    return result
 
 
 def answer_website():
@@ -210,26 +230,47 @@ def answer_exam(query):
 def answer_student(query):
     """Answer questions about students"""
     students = college_data.get('students', [])
+    query_lower = query.lower()
     
-    # Try to find a student by name or roll number
+    # Try to find a specific student by name or roll number
     for student in students:
-        if student['name'].lower() in query or student['roll_no'].lower() in query:
-            return (
-                f"Student: {student['name']}\n"
-                f"Roll No: {student['roll_no']}\n"
-                f"Department: {student['department']}\n"
-                f"CGPA: {student['cgpa']}\n"
-                f"Overall Attendance: {student['attendance']['overall']}%\n"
-                f"Fee Status: {student['fee_status']}" + 
-                (f" (₹{student['fee_amount']} pending)" if student['fee_status'] == 'Pending' else "") + "\n"
-                f"Hostel: {student['hostel']}"
-            )
+        if student['name'].lower() in query_lower or student['roll_no'].lower() in query_lower:
+            result = f"\n👤 Student Details:\n\n"
+            result += f"Name: {student['name']}\n"
+            result += f"Roll No: {student['roll_no']}\n"
+            result += f"Department: {student['department']}\n"
+            result += f"Semester: {student['semester']}\n"
+            result += f"CGPA: {student['cgpa']}\n\n"
+            result += f"📊 Attendance:\n"
+            result += f"   Overall: {student['attendance']['overall']}%\n"
+            for subject, percent in student['attendance'].items():
+                if subject != 'overall':
+                    result += f"   • {subject}: {percent}%\n"
+            result += f"\n💰 Fee Status: {student['fee_status']}"
+            if student['fee_status'] == 'Pending':
+                result += f" (₹{student['fee_amount']} due)\n"
+            else:
+                result += "\n"
+            result += f"🏠 Hostel: {student['hostel']}"
+            return result
     
-    # If no specific student found, show all students
-    student_list = "All Students:\n"
-    for student in students:
-        student_list += f"- {student['name']} ({student['roll_no']}) - Attendance: {student['attendance']['overall']}%\n"
-    return student_list
+    # Check for fee-related queries
+    if 'fee' in query_lower or 'pending' in query_lower:
+        pending_students = [s for s in students if s['fee_status'] == 'Pending']
+        if pending_students:
+            result = "💰 Students with Pending Fees:\n\n"
+            for s in pending_students:
+                result += f"• {s['name']} ({s['roll_no']}) - ₹{s['fee_amount']} due\n"
+            return result
+    
+    # Default: show all students
+    result = "👥 All Students in Class:\n\n"
+    for i, student in enumerate(students, 1):
+        result += f"{i}. {student['name']}\n"
+        result += f"   Roll No: {student['roll_no']}\n"
+        result += f"   CGPA: {student['cgpa']} | Attendance: {student['attendance']['overall']}%\n"
+        result += f"   Fee: {student['fee_status']}\n\n"
+    return result
 
 
 @app.route('/api/query', methods=['POST'])
@@ -293,6 +334,24 @@ def api_search_student():
         return jsonify({'error': 'No students found matching your query'}), 404
     
     return jsonify({'students': matches})
+
+
+@app.route('/api/faculty/search', methods=['POST'])
+def api_search_faculty():
+    """Search for faculty by name or subject"""
+    body = request.get_json(force=True)
+    query = body.get('query', '').lower().strip()
+    
+    if not query:
+        return jsonify({'error': 'Please provide a search query'}), 400
+    
+    faculty = college_data.get('faculty', [])
+    matches = [f for f in faculty if query in f['name'].lower() or query in f['subject'].lower()]
+    
+    if not matches:
+        return jsonify({'error': 'No faculty found matching your query'}), 404
+    
+    return jsonify({'faculty': matches})
 
 
 @app.route('/', defaults={'path': ''})
