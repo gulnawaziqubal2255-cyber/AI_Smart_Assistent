@@ -298,11 +298,6 @@ function displayFacultyResults(faculty) {
     </div>
   `).join('');
 }
-  const message = queryInput.value.trim();
-  if (!message) return;
-  queryInput.value = '';
-  sendQuery(message);
-});
 
 scrollToChat?.addEventListener('click', () => {
   document.querySelector('.assistant-panel')?.scrollIntoView({ behavior: 'smooth' });
